@@ -1,0 +1,36 @@
+---
+# ####################################################################
+# This file defines all the variables used to install and to startup
+# an Oracle database 12c. Importantly, this is just a standalone 
+# installation
+# ####################################################################
+
+# ####################################################################
+# Variables used to install an Oracle database 12c using a RSP file
+# ####################################################################
+
+ oracle_user: oracle
+ oracle_group: oinstall
+ oracle_user_home: "u01/{{ oracle_user }}"
+ staging_directory: "{{ oracle_user_home }}/staging/database" # Directory on the controller machine
+ installer_file: linuxx64_12201_database.zip
+ oracle_db_version: 12.2.0.1.0
+
+ database_installation_directory: "{{ oracle_user_home }}/database"
+ oracle_install_option: INSTALL_DB_AND_CONFIG
+ unix_group_name: "{{ oracle_group }}"
+ inventory_location: "{{ database_installation_directory }}/oraInventory"
+ oracle_base: "{{ database_installation_directory }}/oraclebase"
+ oracle_home:  "{{ oracle_base }}/product/{{ oracle_db_version }}/dbhome_1"
+ install_edition: SE2
+ rac_install: false
+ global_db_name: obieedb
+ sid: "{{ global_db_name }}"
+ container_db: false
+ character_set: AL32UTF8
+ example_schemas: true
+ sys_password: vault_sys_password
+ system_password: vault_system_password
+ dbsnmp_password: vault_dbsnmp_password
+ data_location: "{{ database_installation_directory }}/databasefilelocation"
+ decline_security_updates: true

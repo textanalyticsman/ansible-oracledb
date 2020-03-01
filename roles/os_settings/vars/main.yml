@@ -1,0 +1,108 @@
+---
+# vars file for os_settings
+
+# OS packages required by Oracle DB 12.2
+os_packages:
+ - binutils
+ - compat-libcap1
+ - compat-libstdc++-33
+ - compat-libstdc++-33.i686
+ - glibc
+ - glibc.i686
+ - glibc-devel
+ - glibc-devel.i686
+ - ksh
+ - libaio
+ - libaio.i686
+ - libaio-devel
+ - libaio-devel.i686
+ - libX11
+ - libX11.i686
+ - libXau
+ - libXau.i686
+ - libXi
+ - libXi.i686
+ - libXtst
+ - libXtst.i686
+ - libgcc
+ - libgcc.i686
+ - libstdc++
+ - libstdc++.i686
+ - libstdc++-devel
+ - libstdc++-devel.i686
+ - libxcb
+ - libxcb.i686
+ - make
+ - nfs-utils
+ - net-tools
+ - smartmontools
+ - sysstat
+ - unixODBC
+ - unixODBC-devel
+
+# /etc/sysctl.conf requirements
+sysctl_configurations:
+  fs.file-max:
+    value: 6815744
+  kernel.sem: 
+    value: 250 32000 100 128
+  kernel.shmmni:
+    value: 4096
+  kernel.shmall:
+    value: 1073741824
+  kernel.shmmax:
+    value: 4398046511104
+  kernel.panic_on_oops:
+    value: 1
+  net.core.rmem_default:
+    value: 262144
+  net.core.rmem_max:
+    value: 4194304
+  net.core.wmem_default:
+    value: 262144
+  net.core.wmem_max:
+    value: 1048576
+  net.ipv4.conf.all.rp_filter:
+    value: 2
+  net.ipv4.conf.default.rp_filter:
+    value: 2
+  fs.aio-max-nr:
+    value: 1048576
+  net.ipv4.ip_local_port_range:
+    value: 9000 65500
+
+# Number of processes and open files
+limits:
+  01:
+    lim_item: nofile
+    lim_type: soft
+    lim_value: 1024
+  02:
+    lim_item: nofile
+    lim_type: hard
+    lim_value: 65536
+  03:
+    lim_item: nproc
+    lim_type: soft
+    lim_value: 16384
+  04:
+    lim_item: nproc
+    lim_type: hard
+    lim_value: 16384
+  05:
+    lim_item: stack
+    lim_type: soft
+    lim_value: 10240
+  06: 
+    lim_item: stack
+    lim_type: hard
+    lim_value: 32768
+  07:
+    lim_item: memlock
+    lim_type: soft
+    lim_value: 134217728
+  08:
+    lim_item: memlock
+    lim_type: hard
+    lim_value: 134217728
+

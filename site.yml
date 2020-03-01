@@ -1,0 +1,19 @@
+---
+# ####################################################################################
+# This is the main playbook, which is used to call all the roles that will allow the 
+# installation of an Oracle Database 12c using an RSP file
+# ####################################################################################
+
+- hosts: database
+  remote_user: oracle
+  tasks:
+     # This task is used to load the variables, which are defined outside roles directories
+     # The variable called environment is passed as extra-vars parameter when ansible-playbook
+     # command is executed
+   - name: Loading variables according to the environment you are working on
+     include_vars: "{{ item }}"
+     with_fileglob:
+      - "inventories/{{ environment_chosen }}/group_vars/*.yml"
+   - include_role:
+      name: os_settings
+     
