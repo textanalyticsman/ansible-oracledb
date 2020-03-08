@@ -1,0 +1,40 @@
+---
+# tasks file for install_oracle_db
+
+ - name: Creating a staging directory
+   file:
+     path: "{{ inst_sofware_destiny_dir }}"
+     state: directory
+
+ - name: Copying Oracle 12 database installer
+   copy:
+     src: "{{ inst_software_source_dir }}/{{ inst_db_installer }}"
+     dest: "{{ inst_sofware_destiny_dir }}"
+
+ - name: Unzipping Oracle database installer
+   unarchive:
+     src: "{{ inst_sofware_destiny_dir }}/{{ inst_db_installer }}"
+     dest: "{{ inst_sofware_destiny_dir }}"
+     remote_src: yes
+
+ - name: Creating a directory for templates
+   file:
+     path: "{{ inst_template_dir }}"
+     state: directory
+
+ - name: Creating the response file to install and configure the database
+   template:
+     src: db_install.rsp
+     dest: "{{ inst_template_dir }}"
+
+ - name: Creating the directory to install the databse
+   file:
+     path: "{{ inst_root_dir }}"
+     state: directory
+     mode: g+s
+
+ - name: Installing and configuring the database
+   command: "{{ inst_sofware_destiny_dir }}/database/runInstaller -executeConfigTools \
+            -responseFile {{ inst_template_dir }}/db_install.rsp -silent"
+   args:
+     creates: "{{ inst_oracle_home }}"

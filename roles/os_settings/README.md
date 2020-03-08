@@ -1,38 +1,37 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+The goal of this roles is to set the Linux Operating System v7 according to the requirements provided by Oracle to install an Oracle database 12.2
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+You will need a machine with Redhat 7.7 and do not forget to execute this.
+
+sudo yum-config-manager --enable rhel-7-server-optional-rpms
+
+Next time, I will automate previous step. However, beyond the way to set this, this is needed.
 
 Role Variables
 --------------
+os_packages, a list of OS packages installed on target(s) machines.
+sysctl_configurations, a dictionary, which represents the configurations applied on /etc/sysctl.conf before the installation of Oracle database.
+limits, a dictionary, which represents the soft and hard limits for processes and files to be set before installing Oracle database.
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
 
 Dependencies
 ------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+At this moment this roles does not depend on other roles or external variables.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+This roles can be executed as is shown below.
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+   - include_role:
+      name: os_settings
 
 License
 -------
 
 BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).

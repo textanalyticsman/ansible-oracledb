@@ -1,0 +1,31 @@
+---
+# vars file for install_oracle_db
+
+ inst_software_source_dir: /u01/software
+ inst_sofware_destiny_dir: /u01/staging/oracledb # create dir, unzip installer, use as source to install
+ inst_template_dir: "{{ inst_sofware_destiny_dir }}/templates"
+ inst_root_dir: /home/oracle/database # database is installed here
+ inst_db_installer: linuxx64_12201_database.zip
+ inst_install_option: INSTALL_DB_AND_CONFIG 
+ inst_group_name: oinstall
+ inst_inventory_location: "{{ inst_root_dir }}/oraInventory"
+ inst_oracle_home: "{{ inst_root_dir }}/oraclebase/product/12.2.0.1.0/dbhome_1"
+ inst_oracle_base: "{{ inst_root_dir }}/oraclebase"
+ inst_install_edition: SE2
+ inst_dba_group: dba
+ inst_is_rac_install: false
+ inst_start_db_type: GENERAL_PURPOSE
+ inst_global_db_name: ofm12db
+ inst_db_sid: ofm12db
+ inst_conf_as_container: false
+ inst_db_charset: AL32UTF8
+ inst_automatic_memory: false
+ inst_memory_limit: 1024
+ inst_example_schemas: false
+ inst_management_option: DEFAULT
+ inst_enable_recovery: false
+ inst_storage_type: FILE_SYSTEM_STORAGE
+ inst_data_location: "{{ inst_root_dir }}/databasefilelocation"
+ inst_security_update: false
+ inst_decline_security_update: true
+

@@ -15,5 +15,6 @@
      with_fileglob:
       - "inventories/{{ environment_chosen }}/group_vars/*.yml"
    - include_role:
-      name: os_settings
-     
+       name: os_settings
+   - include_role:
+       name: install_oracle_db  
