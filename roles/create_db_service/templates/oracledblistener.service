@@ -1,0 +1,15 @@
+[Unit]
+Description=Oracle Net Listener
+After=network.target
+
+[Service]
+Type=forking
+Environment="ORACLE_BASE={{ oracle_base }}"
+Environment="ORACLE_HOME={{ oracle_home }}"
+Environment="ORACLE_SID={{ sid }}"
+ExecStart={{ oracle_home }}/bin/lsnrctl start
+ExecStop={{ oracle_home }}/bin/lsnrctl stop
+User=oracle
+
+[Install]
+WantedBy=multi-user.target

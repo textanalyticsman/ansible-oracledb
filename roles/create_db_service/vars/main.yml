@@ -1,0 +1,4 @@
+---
+# vars file for create_db_service
+
+cdbs_service_path: /usr/lib/systemd/system

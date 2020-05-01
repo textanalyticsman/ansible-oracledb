@@ -11,7 +11,7 @@
 
  oracle_user: oracle
  oracle_group: oinstall
- oracle_user_home: "u01/{{ oracle_user }}"
+ oracle_user_home: "/home/{{ oracle_user }}"
  staging_directory: "{{ oracle_user_home }}/staging/database" # Directory on the controller machine
  installer_file: linuxx64_12201_database.zip
  oracle_db_version: 12.2.0.1.0
@@ -24,7 +24,7 @@
  oracle_home:  "{{ oracle_base }}/product/{{ oracle_db_version }}/dbhome_1"
  install_edition: SE2
  rac_install: false
- global_db_name: obieedb
+ global_db_name: ofm12db
  sid: "{{ global_db_name }}"
  container_db: false
  character_set: AL32UTF8
@@ -34,3 +34,4 @@
  dbsnmp_password: vault_dbsnmp_password
  data_location: "{{ database_installation_directory }}/databasefilelocation"
  decline_security_updates: true
+ ora_tab_file: /etc/oratab

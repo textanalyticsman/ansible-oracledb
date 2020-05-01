@@ -1,0 +1,39 @@
+- hosts: database
+  remote_user: oracle
+  tasks:
+   - name: Loading variables according to the environment you are working on
+     include_vars: "{{ item }}"
+     with_fileglob:
+      - "inventories/{{ environment_chosen }}/group_vars/*.yml"
+
+#   - name: Stopping the database listener
+#     command: "{{ oracle_home }}/bin/lsnrctl stop"
+
+#   - name: Stopping the database
+#     command: "{{ oracle_home }}/bin/dbshut $ORACLE_HOME"
+
+- hosts: database
+  remote_user: oracle
+  become: yes
+  become_user: root
+  tasks:
+    # Here we will call the role to create Linux Services for Oracle database
+   - name: Configuring /etc/oratab file
+     lineinfile:
+       dest: /etc/oratab
+       regexp: '^{{ sid }}:{{ oracle_home }}:N'
+       line: "{{ sid }}:{{ oracle_home }}:Y"
+       backup: yes
+
+   - include_role:
+       name: create_db_service
+
+   - name: Starting Oracle database
+     service:
+       name: oracledb
+       state: restarted
+
+   - name: Starting Oracle database listener
+     service:
+       name: oracledblistener
+       state: restarted

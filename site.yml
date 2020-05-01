@@ -17,4 +17,23 @@
    - include_role:
        name: os_settings
    - include_role:
-       name: install_oracle_db  
+       name: install_oracle_db
+
+- hosts: database
+  remote_user: oracle
+  become: yes
+  become_user: root
+  tasks:
+    # Here we will call the role to create Linux Services for Oracle database
+   - include_role:
+       name: create_db_service
+
+   - name: Starting Oracle database
+     service:
+       name: oracledb
+       state: started
+
+   - name: Starting Oracle database listener
+     service:
+       name: oracledblistener
+       state: started

@@ -1,0 +1,15 @@
+[Unit]
+Description=Oracle Database service
+After=network.target oracledblistener.service
+
+[Service]
+Type=forking
+Environment="ORACLE_BASE={{ oracle_base }}"
+Environment="ORACLE_HOME={{ oracle_home }}"
+Environment="ORACLE_SID={{ sid }}"
+ExecStart={{ oracle_home }}/bin/dbstart {{ oracle_home }}
+ExecStop={{ oracle_home }}/bin/dbshut {{ oracle_home }}
+User=oracle
+
+[Install]
+WantedBy=multi-user.target

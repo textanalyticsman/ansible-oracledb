@@ -41,11 +41,6 @@
    args:
      creates: "{{ inst_ora_inst_root_file }}"
 
- - name: "Executing {{ inst_ora_inst_root_file }}"
-   command: "{{ inst_ora_inst_root_file }}"
-   become: yes
-   become_user: root
-
  - name: "Executing {{ inst_ora_root_file }}"
    command: "{{ inst_ora_root_file }}"
    become: yes
@@ -57,3 +52,9 @@
    command: "{{ inst_sofware_destiny_dir }}/database/runInstaller \
             -executeConfigTools -responseFile {{ inst_template_dir }}/db_install.rsp \
             -silent -waitforcompletion -showProgress"
+
+ - name: Setting environment variables in .bash_profile
+   template:
+     src: .bash_profile
+     dest: "{{ inst_user_home }}"
+     mode: '0644'     

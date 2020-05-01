@@ -1,0 +1,42 @@
+---
+# tasks file for create_db_service
+
+ # This is configured to allow the usage of the script ORACLE_HOME/bin/[dbstart|dbshut]
+ # to startup/shutdown the database
+ - name: Configuring /etc/oratab file
+   lineinfile:
+     dest: "{{ ora_tab_file }}"
+     regexp: '^{{ sid }}:{{ oracle_home }}:N'
+     line: "{{ sid }}:{{ oracle_home }}:Y"
+     backup: yes
+ 
+ - name: Stopping the database listener
+   command: "{{ oracle_home }}/bin/lsnrctl stop"
+
+ - name: Stopping the database
+   command: "{{ oracle_home }}/bin/dbshut $ORACLE_HOME"
+
+ - name: Creating service file for Database Listener
+   template:
+     src: oracledblistener.service
+     dest: "{{ cdbs_service_path }}"
+     mode: '0644'
+
+ - name: Creating service file for Database Service
+   template:
+     src: oracledb.service
+     dest: "{{ cdbs_service_path }}"
+     mode: '0644'
+ 
+ - name: Executing daemon-reload
+   command: systemctl daemon-reload
+
+ - name: Enabling the database listener service
+   service:
+     name: oracledblistener
+     enabled: yes
+
+ - name: Enabling the database service
+   service:
+     name: oracledb
+     enabled: yes
