@@ -31,9 +31,6 @@
 - hosts: database
   remote_user: oracle
   tasks:
-   - name: Stopping the database listener
-     command: "{{ oracle_home }}/bin/lsnrctl stop"
-
    - name: Stopping the database
      command: "{{ oracle_home }}/bin/dbshut {{ oracle_home }}"
 
