@@ -12,6 +12,11 @@
    - name: Stopping the database
      command: "{{ oracle_home }}/bin/dbshut {{ oracle_home }}"
 
+- hosts: database
+  remote_user: oracle
+  become: yes
+  become_user: root
+  tasks:
    - name: Starting Oracle database listener
      service:
        name: oracledblistener
