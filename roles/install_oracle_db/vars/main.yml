@@ -10,7 +10,6 @@
  inst_install_option: INSTALL_DB_AND_CONFIG 
  inst_group_name: oinstall
  inst_inventory_location: "{{ inst_root_dir }}/oraInventory"
- inst_ora_inst_root_file: "{{ inst_inventory_location }}/orainstRoot.sh"
  inst_oracle_home: "{{ oracle_home }}"
  inst_ora_root_file: "{{ inst_oracle_home }}/root.sh"
  inst_ora_tab_file: /etc/oratab

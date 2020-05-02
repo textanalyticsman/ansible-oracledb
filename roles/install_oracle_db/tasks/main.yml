@@ -38,8 +38,6 @@
  - name: Installing and configuring the database
    command: "{{ inst_sofware_destiny_dir }}/database/runInstaller \
             -responseFile {{ inst_template_dir }}/db_install.rsp -silent -waitforcompletion -showProgress"
-   args:
-     creates: "{{ inst_ora_inst_root_file }}"
 
  - name: "Executing {{ inst_ora_root_file }}"
    command: "{{ inst_ora_root_file }}"

@@ -28,12 +28,21 @@
    - include_role:
        name: create_db_service
 
-   - name: Starting Oracle database
-     service:
-       name: oracledb
-       state: started
+- hosts: database
+  remote_user: oracle
+  tasks:
+   - name: Stopping the database listener
+     command: "{{ oracle_home }}/bin/lsnrctl stop"
+
+   - name: Stopping the database
+     command: "{{ oracle_home }}/bin/dbshut {{ oracle_home }}"
 
    - name: Starting Oracle database listener
      service:
        name: oracledblistener
+       state: started
+
+   - name: Starting Oracle database
+     service:
+       name: oracledb
        state: started

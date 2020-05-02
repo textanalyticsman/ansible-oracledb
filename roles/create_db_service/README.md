@@ -1,31 +1,51 @@
-Role Name
-=========
+create_db_service
+=================
 
-A brief description of the role goes here.
+This role creates a couple of systemd services to startup and shutdow the Oracle databse service and its listener. As the scripts {{ oracle_home }}/bin/dbstart and {{ oracle_home }}/bin/dbshut are used. The /etc/oratab file is modified to allow the usage of these scripts.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+An Oracle database has been installed using the role install_oracle_db.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+#### cdbs_service_path: /usr/lib/systemd/system
+The path used to create the service files used to manage the database and its listener as services.
+
+#### oracle_base
+The oracle base path used by the service.
+
+#### oracle_home
+The Oracle Home used by the service.
+
+#### sid
+The Oracle SID used by the service.
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Before running using this, the following roles must be executed.
+
+1. os_settings
+1. install_oracle_db
+
+This role depens on some variables located at ANSIBLE-ORACLEDB/inventories/dev/group_vars/oracledb_vars.yml
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+The following example shows how to use this role. It needs root as this will create two services one for the database and the other for the listener.
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+    - hosts: database
+      remote_user: oracle
+      become: yes
+      become_user: root
+      tasks:
+        # Here we will call the role to create Linux Services for Oracle database
+      - include_role:
+          name: create_db_service
 
 License
 -------
@@ -35,4 +55,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+[Linkedin](https://www.linkedin.com/in/raul-castillo-11051980/)

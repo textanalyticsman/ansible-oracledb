@@ -1,5 +1,5 @@
-Role Name
-=========
+os_settings
+===========
 
 The goal of this roles is to set the Linux Operating System v7 according to the requirements provided by Oracle to install an Oracle database 12.2
 
@@ -18,7 +18,6 @@ os_packages, a list of OS packages installed on target(s) machines.
 sysctl_configurations, a dictionary, which represents the configurations applied on /etc/sysctl.conf before the installation of Oracle database.
 limits, a dictionary, which represents the soft and hard limits for processes and files to be set before installing Oracle database.
 
-
 Dependencies
 ------------
 At this moment this roles does not depend on other roles or external variables.
@@ -28,10 +27,18 @@ Example Playbook
 
 This roles can be executed as is shown below.
 
-   - include_role:
-      name: os_settings
+      - hosts: database
+        remote_user: oracle
+        tasks:
+         - include_role:
+            name: os_settings
 
 License
 -------
 
 BSD
+
+Author Information
+------------------
+
+[RSCC](https://www.linkedin.com/in/raul-castillo-11051980/)
